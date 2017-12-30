@@ -24,7 +24,6 @@ require([
     "jquery.validate",
 
     // other files
-    "todo_list",
     "alpha",
     // "beta",
 

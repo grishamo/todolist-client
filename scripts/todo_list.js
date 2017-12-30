@@ -1,18 +1,19 @@
 define(['jquery'],function($){
-    console.log('todo_list');
-    var data;
 
-
-    function add(item){
+    function ToDoList(){
+      console.log('ToDoList::constructor');
+        this.data = 'mock_data'
 
     }
 
-    function render(){
-        console.log('todo_list::init');
+
+    ToDoList.prototype.addItem = function(item){
+      console.log('ToDoList::addItem');
     }
 
-    return {
-        render: render,
-        add: add
+    ToDoList.prototype.render = function(){
+        console.log('ToDoList::render');
     }
+
+    return ToDoList
 });
