@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css?family=Courgette');
+.my-theme #add-btn{
+    position: fixed;
+    z-index: 50;
+    bottom: 10px;
+    width: 70px;
+    height: 70px;
+    right: 10px;
+    line-height: 70px;
+    box-sizing: border-box;
+    font-size: 30px;
+    padding: 0;
+    text-shadow: none;
+    background: #29b58d;
+    text-decoration: none;
+    border-radius: 35px;
+    color: #ffffff;
+    text-align: center;
+}
+
+.my-theme .list-item-content h2{
+    margin: 0;
+}
+.my-theme .list-item-content p{
+    margin: 0;
+    color: #8e8e8eee;
+}
+
+.my-theme .all-lists li[data-role="list-divider"] {
+    color: #8e8e8eee;
+}
+.my-theme h4.list-title > a {
+    background: #295ab5 !important;
+    color: #ffffff !important;
+    text-shadow: none !important;
+}
+.my-theme .divider-header {
+    background: #29b58e;
+    color: #ffffff;
+    outline: none;
+    text-shadow: none;
+}
+
+.my-theme .main-header[data-role='header'] {
+    font-family: 'Courgette', cursive;
+    background: #295bb5;
+    text-shadow: none;
+    color: #ffffff;
+}
+.my-theme .main-header[data-role='header'] > a {
+    background: none !important;
+}
