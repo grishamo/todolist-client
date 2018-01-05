@@ -33,6 +33,7 @@
     background: #295ab5 !important;
     color: #ffffff !important;
     text-shadow: none !important;
+    text-transform: capitalize;
 }
 .my-theme .divider-header {
     background: #29b58e;
@@ -49,4 +50,10 @@
 }
 .my-theme .main-header[data-role='header'] > a {
     background: none !important;
+}
+.my-theme .ui-tabs {
+    background: #eeeeee;
+}
+.my-theme #todayList {
+    margin: 0;
 }

@@ -1,18 +1,16 @@
 require.config( {
-    // no minification, is done by the min task
-    //optimize: 'none',
     baseUrl: 'scripts',
     paths: {
+        "q" : "../lib/q.min",
         "jquery": "../lib/jquery.min",
         "jquerymobile": "../lib/jquerymobile.min",
-        "jquery.validate": "../lib/jquery.validate.min",
-        "underscore": "../lib/lodash.min"
+        "jquery.validate": "../lib/jquery.validate.min"
     },
     shim: {
-        'underscore': { exports: "_" },
+        'q' : {exports: 'Q'},
         'jquery': { exports: "$" },
-        'jquery.validate': ['jquery'],
-        'jquerymobile': ['jquery', 'mobileinit']
+        'jquerymobile': ['jquery', 'mobileinit'],
+        'jquery.validate': ['jquery']
     }
 });
 
@@ -20,12 +18,10 @@ require.config( {
 require([
     // libraries
     "jquery",
-    "underscore",
     "jquery.validate",
 
     // other files
-    "alpha",
-    // "beta",
+    "app",
 
     "jquerymobile" // load last
 ]);

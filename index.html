@@ -28,7 +28,7 @@
         </div><!-- /header -->
 
         <!--MAIN CONTENT-->
-        <div data-role="main" class="ui-content">
+        <div data-role="main" class="ui-content" id="mainContent">
 
             <!--Add New-->
             <a href="#add-new" data-rel="popup" data-position-to="window" data-transition="pop" id="add-btn">+</a>
@@ -41,81 +41,63 @@
                     </div>
             </div>
 
-            <ul data-role="listview" style="margin: 0;">
-
-                <li data-role="list-divider" class="divider-header">Today <span class="ui-li-count">2</span></li>
-                <li class="list-item-content">
-                    <a href="" class="ui-btn ui-btn-icon-right ui-icon-gear">
-                        <h2>Stephen Weber</h2>
-                        <p>Today, 9:00</p>
-                    </a>
-                </li>
-
-                <li class="list-item-content">
-                    <a href="" class="ui-btn ui-btn-icon-right ui-icon-gear">
-                    <h2>Buy Fruits</h2>
-                    </a>
-                </li>
-
-                <li data-role="list-divider" class="divider-header">Tomorrow <span class="ui-li-count">1</span></li>
-                <li class="list-item-content">
-                    <a href="" class="ui-btn ui-btn-icon-right ui-icon-gear">
-                    <h2>Lorem ipsum dolor sit amet</h2>
-                    <p>Friday, October 8, 2010, 9:00</p>
-                    </a>
-                </li>
-
+            <!--Today List-->
+            <ul data-role="listview" style="margin: 0;" id="todayList">
+                <li data-role="list-divider" class="divider-header">Today</li>
             </ul>
 
+
+            <!-- All Lists -->
             <div class="ui-corner-all custom-corners all-lists" style="margin-top: 20px;">
-                <div class="ui-bar ui-bar-a">
-                    <h3>All Lists</h3>
-                </div>
-                <div class="ui-body ui-body-a">
-                    <div data-role="collapsible">
-                        <h4 class="list-title">Shopping</h4>
-                        <ul data-role="listview">
 
-                            <li data-role="list-divider">Friday, October 8, 2010 <span class="ui-li-count">2</span></li>
-                            <li class="list-item-content">
-                                <a href="" class="ui-btn ui-btn-icon-right ui-icon-gear">
-                                <h2>Lorem ipsum dolor sit amet</h2>
-                                </a>
-                            </li>
-
-                            <li class="list-item-content">
-                                <a href="" class="ui-btn ui-btn-icon-right ui-icon-gear">
-                                    <h2>Lorem ipsum dolor sit</h2>
-                                    <p>12:00</p>
-
-                                </a>
-                            </li>
-
-                            <li data-role="list-divider">Thursday, October 7, 2010 <span class="ui-li-count">1</span></li>
-                            <li class="list-item-content">
-                                <a href="" class="ui-btn ui-btn-icon-right ui-icon-gear">
-                                <h2>Lorem ipsum dolor sit amet</h2>
-                                </a>
-                            </li>
-
+                <div data-role="tabs">
+                    <div data-role="navbar">
+                        <ul>
+                            <li><a href="#allLists" data-ajax="false">All Lists</a></li>
+                            <li><a href="#two" data-ajax="false">Events By Date</a></li>
                         </ul>
                     </div>
-                    <div data-role="collapsible">
-                        <h4 class="list-title">Home</h4>
+
+                    <div id="allLists" class="ui-content">
+                    </div>
+                    <div id="two" class="ui-content">
                         <ul data-role="listview">
-
-                            <li data-role="list-divider">Friday, October 8, 2010 <span class="ui-li-count">2</span></li>
-                            <li class="list-item-content">
-                                <a href="" class="ui-btn ui-btn-icon-right ui-icon-gear">
-                                    <h2>Lorem ipsum dolor sit</h2>
-                                    <p>12:00</p>
-
-                                </a>
-                            </li>
-
+                            <li><a href="#">Acura</a></li>
+                            <li><a href="#">Audi</a></li>
+                            <li><a href="#">BMW</a></li>
+                            <li><a href="#">Cadillac</a></li>
+                            <li><a href="#">Ferrari</a></li>
                         </ul>
                     </div>
                 </div>
+
+                <!--<div data-role="tabs">-->
+                <!--    <div data-role="navbar">-->
+                <!--        <ul>-->
+                <!--          <li><a href="#allLists">All Lists</a></li>-->
+                <!--          <li><a href="#two">Events by Date</a></li>-->
+                <!--        </ul>-->
+                <!--    </div>-->
+
+                <!--    <div id="allLists" class="ui-content"></div>-->
+
+                <!--    <div id="two" class="ui-content">-->
+                <!--        <ul data-role="listview">-->
+                <!--            <li><a href="#">Acura</a></li>-->
+                <!--            <li><a href="#">Audi</a></li>-->
+                <!--            <li><a href="#">BMW</a></li>-->
+                <!--            <li><a href="#">Cadillac</a></li>-->
+                <!--            <li><a href="#">Ferrari</a></li>-->
+                <!--        </ul>-->
+                <!--    </div>-->
+                <!--</div>-->
+
+                <!--<div class="ui-bar ui-bar-a">-->
+                    <!--<h3>All Lists</h3>-->
+                <!--</div>-->
+                <!--<div class="ui-body ui-body-a" id="allLists">-->
+                   <!---->
+                <!--</div>-->
             </div>
 
         </div><!-- /content -->
