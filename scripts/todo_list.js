@@ -34,16 +34,38 @@ define(['jquery','q'],function($, q){
             console.log('ToDoList::render');
             $this.renderTodayList();
             $this.renderAllLists();
+            $this.renderListByDate();
             resolve();
         });
     };
 
+    ToDoList.prototype.renderListByDate = function() {
+        var $this = this;
+        var container = $('#listByDate');
+        this.dataByDate = $this.mapDataBy('date');
+
+        $.each(this.dataByDate, function(key, val){
+
+            var listContainer = 'list-container-' + key.replace(/ /g, "-");
+            var listName = 'list-' + key;
+            var listCollapsible = $('<div data-role="collapsible" id="'+ listContainer +'"></div>');
+            var listTitle = $('<h4 class="list-title">'+ key +'</h4>');
+
+            listCollapsible.append(listTitle);
+            container.append(listCollapsible);
+
+            $this.renderListView('#' + listContainer, listName, val);
+
+            listCollapsible.collapsible();
+
+        });
+    };
 
     ToDoList.prototype.renderAllLists = function() {
         var $this = this;
         var container = $('#allLists');
 
-        this.dataByListName = $this.mapDataByListName();
+        this.dataByListName = $this.mapDataBy('list');
         container.empty();
 
         $.each(this.dataByListName, function(key, val){
@@ -70,20 +92,26 @@ define(['jquery','q'],function($, q){
         this.renderListView(container, listName, data);
     };
 
-    ToDoList.prototype.mapDataByListName = function(){
-        var dataByList = {};
+    ToDoList.prototype.mapDataBy = function(key){
+        var mapedData = {};
+        var data = this.data;
+        var field = key;
 
-        this.data.map(function (val) {
-            if(typeof val.list !== 'undefined' && val.list !== null && val.list.length > 1){
+        data.map(function (val) {
+            if(typeof val[field] !== 'undefined' && val[field] !== null && val[field].length > 1){
 
-                if(!dataByList.hasOwnProperty(val.list)){
-                    dataByList[val.list] = [];
+                if(field === 'date'){
+                    val[field] = new Date(val[field]).toDateString();
                 }
-                dataByList[val.list].push(val);
+
+                if(!mapedData.hasOwnProperty (val[field] )){
+                    mapedData[ val[field] ] = [];
+                }
+                mapedData[ val[field] ].push(val);
             }
         });
 
-        return dataByList;
+        return mapedData;
     };
 
     ToDoList.prototype.getTodayEvents = function(){
