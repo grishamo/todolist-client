@@ -35,8 +35,42 @@ define(['jquery','q'],function($, q){
             $this.renderTodayList();
             $this.renderAllLists();
             $this.renderListByDate();
+            $this.renderEditWindow();
             resolve();
         });
+    };
+
+    ToDoList.prototype.renderEditWindow = function(){
+
+        var selectList = $("#select-list");
+        selectList.empty();
+
+        $.each(this.dataByListName, function(key, value) {
+            selectList.append( $('<option value="'+ key +'">'+ key +'</option>') );
+        });
+
+        selectList.select('refresh');
+
+        this.editWindowSubmit();
+
+    };
+
+    ToDoList.prototype.editWindowSubmit = function(){
+        $('#submit-btn').click(function(){
+
+            var myForm = $('#edit-task-form')[0];
+
+            var formData = {
+                title: myForm.elements['title'].value,
+                date: myForm.elements['datetime'].value,
+                list: myForm.elements['select-list'].value,
+                newList: myForm.elements['newList'].value
+            };
+
+            console.log(formData);
+
+            console.log('submit button clicked');
+        })
     };
 
     ToDoList.prototype.renderListByDate = function() {

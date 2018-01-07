@@ -5,10 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>To Do List</title>
 
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <!--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">-->
+    <!--<link rel="stylesheet"  href="http://code.jquery.com/mobile/git/jquery.mobile-git.css" />-->
+    <!--<link rel="stylesheet" href="lib/jquery.ui.datepicker.mobile.css" />-->
+    <!--<link rel="stylesheet" href="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/v0.1.1/jquery.mobile.datepicker.css" />-->
+
+    <link rel="stylesheet"  href="http://code.jquery.com/mobile/git/jquery.mobile-git.css" />
+    <link rel="stylesheet" href="lib/jquery.mobile.datepicker.css" />
+    <link rel="stylesheet" href="lib/jquery.mobile.datepicker.theme.css" />
+    <!--<link rel="stylesheet" href="lib/jquery.ui.datepicker.mobile.css" />-->
+    <!--<link rel="stylesheet" href="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/master/jquery.mobile.datepicker.css" />-->
+
     <link rel="stylesheet" href="styles/main.css">
     <script data-main="scripts/main" src="lib/require.js"></script>
 
+    <!--<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-jqm@4.3.1/jtsage-datebox.min.js" type="text/javascript"></script>-->
+    <!--<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-i18n/jquery.mobile.datebox.i18n.en_US.utf8.js" type="text/javascript" ></script>-->
     <!--<script src="lib/require.js"></script>-->
     <!--<script src="dist/output.min.js"></script>-->
 
@@ -32,14 +44,35 @@
 
             <!--Add New-->
             <a href="#add-new" data-rel="popup" data-position-to="window" data-transition="pop" id="add-btn">+</a>
-            <div data-role="popup" id="add-new" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
-                    <div role="main" class="ui-content">
-                        <h3 class="ui-title">Add Item Form</h3>
-                    
+            <div data-role="popup" data-overlay-theme="b" data-transition="pop" id="add-new" data-dismissible="false">
+                <div role="main" class="ui-content">
+                    <form action="#" method="GET" id="edit-task-form">
+                        <div data-role="fieldcontain">
+                            <label for="title">Title:</label>
+                            <input type="text" name="title" id="title" value=""  />
+                        </div>
+                        <div data-role="fieldcontain">
+                            <label for="datetime">Date:</label>
+                            <!--<input type="text" id="date" data-inline="false" data-role="date">-->
+                            <!--<input type="date" data-clear-btn="false" name="date-1" id="date" value="">-->
+                            <input type="datetime-local" data-clear-btn="true" name="datetime" id="datetime" value="">
+                        </div>
+                        <div data-role="fieldcontain">
+                            <label for="select-list" class="select">Select existing list:</label>
+                            <select name="select-list" id="select-list">
+                            </select>
+                        </div>
+                        <div data-role="fieldcontain">
+                            <label for="newList-text">New List:</label>
+                            <input type="text" name="newList" id="newList-text" value=""  />
+                        </div>
 
-                        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
-                        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Add</a>
-                    </div>
+                        <div data-role="fieldcontain" data-type="horizontal">
+                            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
+                            <a href="#" id="submit-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Submit</a>
+                        </div>
+                    </form>
+                </div>
             </div>
 
             <!--Today List-->

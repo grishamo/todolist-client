@@ -2,16 +2,16 @@
     // no minification, is done by the min task
     //optimize: 'none',
     paths: {
-        "jquery": "../lib/jquery.min",
+        "jQuery": "../lib/jquery.min",
         "jquerymobile": "../lib/jquerymobile.min",
         "jquery.validate": "../lib/jquery.validate.min",
         "underscore": "../lib/lodash.min"
     },
     shim: {
         'underscore': { exports: "_" },
-        'jquery': { exports: "$" },
-        'jquery.validate': ['jquery'],
-        'jquerymobile': ['jquery', 'mobileinit']
+        'jQuery': { exports: "$" },
+        'jquery.validate': ['jQuery'],
+        'jquerymobile': ['jQuery', 'mobileinit']
     },
     baseUrl: 'scripts/',
     mainConfigFile: 'scripts/main.js',
