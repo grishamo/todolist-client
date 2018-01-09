@@ -1,4 +1,5 @@
 define(['jquery','q'],function($, q){
+    'use strict';
 
     function ToDoList(){
       console.log('ToDoList::constructor');
@@ -41,18 +42,8 @@ define(['jquery','q'],function($, q){
     };
 
     ToDoList.prototype.renderEditWindow = function(){
-
-        var selectList = $("#select-list");
-        selectList.empty();
-
-        $.each(this.dataByListName, function(key, value) {
-            selectList.append( $('<option value="'+ key +'">'+ key +'</option>') );
-        });
-
-        selectList.select('refresh');
-
+        this.renderSelectList();
         this.editWindowSubmit();
-
     };
 
     ToDoList.prototype.editWindowSubmit = function(){
@@ -72,6 +63,17 @@ define(['jquery','q'],function($, q){
             console.log('submit button clicked');
         })
     };
+
+    ToDoList.prototype.renderSelectList = function(){
+      var selectList = $("#select-list");
+      selectList.empty();
+
+      $.each(this.dataByListName, function(key, value) {
+        selectList.append( $('<option value="'+ key +'">'+ key +'</option>') );
+      });
+
+      selectList.selectmenu('refresh');
+    }
 
     ToDoList.prototype.renderListByDate = function() {
         var $this = this;
