@@ -12,6 +12,8 @@ define(['jquery', 'todo_list'], function($, todo_list) { // do NOT add jquerymob
                 return todoList.render();
             })
             .then(function () {
+                todoList.setControllers();
+
                 console.log('data rendered');
                 $('body').css('opacity', 1);
             })
