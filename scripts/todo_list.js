@@ -2,16 +2,15 @@ define(['jquery','q'],function($, q){
     'use strict';
 
     function ToDoList(){
-      console.log('ToDoList::constructor');
+        console.log('ToDoList::constructor');
         this.data = 'mock_data';
         this.dataByListName = {};
-
     }
 
     ToDoList.prototype.getData = function(){
         var $this = this;
-        return q.Promise(function(resolve, reject){
 
+        return q.Promise( function(resolve, reject){
             $.get("scripts/mock.json", function(data) {
                 $this.data = data;
                 resolve(data);
