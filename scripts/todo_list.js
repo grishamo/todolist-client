@@ -78,6 +78,15 @@ define(['jquery','q'],function($, q){
     };
 
     ToDoList.prototype.editItemEvent = function(){
+      $(document).on('focus', 'input, textarea, select', function() {
+
+        var id_element="#"+$(this).attr('id');
+        setTimeout(function() {
+          $.mobile.activePage.find('.ui-content').iscrollview("scrollToElement",id_element,500);
+
+        }, 50);
+      });
+
         $('.listItem').click(function(ev){
             var listItem = $(ev.currentTarget);
             var title = $(listItem.children('h2')).html();
@@ -85,8 +94,15 @@ define(['jquery','q'],function($, q){
 
             var myForm = $('#edit-task-form')[0];
 
+            //"2018-01-01T00:14:00.000Z" - remove .000Z for match datetime format
+            var itemDate = new Date(itemData.date).toISOString().split('.')[0];
+
             myForm.elements['title'].value = itemData.title;
+            myForm.elements['datetime'].value = itemDate;
+            $('#select-list').val(itemData.list).selectmenu('refresh');
+
             $("#add-new").popup("open");
+
 
         }.bind(this));
     };
@@ -219,32 +235,35 @@ define(['jquery','q'],function($, q){
     };
 
     ToDoList.prototype.renderEmpty = function(){
-        var emptyContent = $('<div>Your List Is Empty</div>');
+        var emptyContent = $('<div class="emptyList-txt" >Your List Is Empty</div>');
+        var emptyContent2 = $('<div class="emptyList-txt" >Your List Is Empty</div>');
         $('#todayList-container').empty();
         $('#listByDate').empty();
         $('#allLists').empty();
 
         $('#allLists').append(emptyContent);
-        $('#allLists').fadeIn();
+        $('#listByDate').append(emptyContent2);
 
     };
 
     ToDoList.prototype.mapDataBy = function(key){
         var mapedData = {};
         var data = this.data;
+        var mapedKey;
         var field = key;
 
         data.map(function (val) {
             if(typeof val[field] !== 'undefined' && val[field] !== null && val[field].length > 0){
+                mapedKey = val[field];
 
                 if(field === 'date'){
-                    val[field] = new Date(val[field]).toDateString();
+                  mapedKey = new Date(val[field]).toDateString();
                 }
 
                 if(!mapedData.hasOwnProperty (val[field] )){
-                    mapedData[ val[field] ] = [];
+                    mapedData[ mapedKey ] = [];
                 }
-                mapedData[ val[field] ].push(val);
+                mapedData[ mapedKey ].push(val);
             }
         });
 
@@ -268,6 +287,8 @@ define(['jquery','q'],function($, q){
     };
 
     ToDoList.prototype.getItemBy = function(key, value) {
+        console.log('getItemBy::', key);
+        console.log('getItemBy. data:', this.data);
        return this.data.find(function(element){
            return element[key] === value
         })

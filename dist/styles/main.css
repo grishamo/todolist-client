@@ -1,4 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Courgette');
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC:400,700');
+.my-theme {
+    background-image: url("images/bg_pattern.jpg");
+}
+.my-theme #home {
+    background: transparent;
+}
 .my-theme #add-btn{
     position: fixed;
     z-index: 50;
@@ -30,7 +36,7 @@
     color: #8e8e8eee;
 }
 .my-theme h4.list-title > a {
-    background: #295ab5 !important;
+    background: #3e7be8 !important;
     color: #ffffff !important;
     text-shadow: none !important;
     text-transform: capitalize;
@@ -42,9 +48,16 @@
     text-shadow: none;
 }
 
+.my-theme .main-header[data-role='header'] h1{
+    font-size: 1.5em;
+    padding: 0.3em 0;
+    font-weight: 400;
+}
 .my-theme .main-header[data-role='header'] {
-    font-family: 'Courgette', cursive;
-    background: #295bb5;
+    font-family: 'Amatic SC', cursive;
+    background: #3e7be8;
+    padding: 0.2em 0;
+    text-transform: uppercase;
     text-shadow: none;
     color: #ffffff;
 }
@@ -52,8 +65,25 @@
     background: none !important;
 }
 .my-theme .ui-tabs {
-    background: #eeeeee;
+    background: rgba(199, 199, 199, 0.4);
 }
 .my-theme #todayList {
     margin: 0;
+}
+.my-theme .emptyList-txt{
+    font-family: 'Amatic SC', cursive;
+    text-align: center;
+    font-size: 38px;
+}
+.my-theme #add-new #edit-submit-btn {
+    background-color: #3e7be8;
+    border-color: #1147b4;
+    
+}
+.my-theme .all-lists a.ui-btn-active {
+    background: #f6f6f6;
+    color: black;
+    border: none;
+    text-shadow: none;
+    border-bottom: 2px solid #3e7be8;
 }
