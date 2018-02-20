@@ -2,21 +2,24 @@
     // no minification, is done by the min task
     //optimize: 'none',
     paths: {
-        "jQuery": "../lib/jquery.min",
-        "jquerymobile": "../lib/jquerymobile.min",
-        "jquery.validate": "../lib/jquery.validate.min",
-        "underscore": "../lib/lodash.min"
+        "q" : "../lib/q.min",
+        "jquery": "../lib/jquery.min",
+        "datepicker" : "../lib/jQuery.ui.datepicker",
+        "datepickermobile" : "../lib/jquery.ui.datepicker.mobile",
+        "jquerymobile": "http://code.jquery.com/mobile/git/jquery.mobile-git",
+        "jquery.validate": "../lib/jquery.validate.min"
     },
     shim: {
-        'underscore': { exports: "_" },
-        'jQuery': { exports: "$" },
-        'jquery.validate': ['jQuery'],
-        'jquerymobile': ['jQuery', 'mobileinit']
+        'jquery': { exports: "$" },
+        'datepicker': ['jquery'],
+        'datepickermobile': ['jquery'],
+        'jquerymobile': ['jquery', 'mobileinit'],
+        'jquery.validate': ['jquery']
     },
-    baseUrl: 'scripts/',
+    baseUrl: 'scripts',
     mainConfigFile: 'scripts/main.js',
 
-    out: 'dist/output.min.js',
+    out: 'dist/scripts/output.min.js',
     optimize: 'uglify2',
 
     include: ['main']

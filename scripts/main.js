@@ -1,5 +1,5 @@
 require.config( {
-    baseUrl: 'scripts',
+    // baseUrl: 'scripts',
     paths: {
         "q" : ["../lib/q.min"],
         "jquery": ["../lib/jquery.min"],

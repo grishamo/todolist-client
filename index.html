@@ -16,14 +16,10 @@
 <body style="opacity: 0;" class="my-theme">
     <div data-role="page" id="home">
 
-        <div data-role="panel" data-display="reveal" id="user-panel">
-            <!-- panel content goes here -->
-        </div><!-- /panel -->
-
+        <!-- HEADER -->
         <div data-role="header" class="main-header">
-            <a href="#user-panel" class="ui-btn-left ui-btn ui-btn-inline ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-icon-notext">No text</a>
             <h1>ToDo List</h1>
-        </div><!-- /header -->
+        </div>
 
         <!--MAIN CONTENT-->
         <div data-role="main" class="ui-content" id="mainContent">
@@ -53,8 +49,9 @@
                         </div>
 
                         <div data-role="fieldcontain" data-type="horizontal">
-                            <a href="#" id="submit-cancel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Cancel</a>
-                            <a href="#" id="submit-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-transition="flow">Submit</a>
+                            <a href="#" id="edit-submit-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-transition="flow">Submit</a>
+                            <a href="#" id="edit-cancel-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Cancel</a>
+                            <a href="#" id="edit-delete-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Delete</a>
                         </div>
                     </form>
                     <div id="errormsg" style="display: none;"></div>
@@ -63,7 +60,7 @@
 
             <!--Today List-->
             <div id="todayList-container">
-                <ul data-role="listview" style="margin: 0;" id="todayList">
+                <ul data-role="listview" id="todayList">
                     <li data-role="list-divider" class="divider-header">Today</li>
                 </ul>
             </div>
@@ -85,6 +82,7 @@
                 </div>
 
             </div>
+
 
         </div><!-- /content -->
 

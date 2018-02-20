@@ -3,7 +3,8 @@ define(['jquery','q'],function($, q){
 
     function ToDoList(){
         console.log('ToDoList::constructor');
-        this.data = 'mock_data';
+        // this.data = 'mock_data';
+        this.data = null;
         this.dataByListName = {};
     }
 
@@ -11,31 +12,41 @@ define(['jquery','q'],function($, q){
         var $this = this;
 
         return q.Promise( function(resolve, reject){
-            $.get("scripts/mock.json", function(data) {
-                $this.data = data;
-                resolve(data);
-            })
-            .fail(function(err) {
-                reject(err);
-            });
-
+            $this.data = JSON.parse( localStorage.getItem('todoData') ) || null;
+            resolve( $this.data );
         })
+
     };
 
     ToDoList.prototype.addItem = function(item) {
         var newItem = item;
         newItem.date = new Date(item.date).toUTCString();
+
+        if( typeof this.data === 'undefined' || this.data === null ) {
+            this.data = [];
+        }
+
         this.data.push(newItem);
+        this.saveDataToStorage(this.data);
     };
 
     ToDoList.prototype.render = function(){
         var $this = this;
         return q.Promise(function(resolve, reject) {
             console.log('ToDoList::render');
-            $this.renderTodayList();
-            $this.renderAllLists();
-            $this.renderListByDate();
-            $this.renderEditWindow();
+
+            if( $this.data && $this.data.length > 0 ) {
+                $this.renderTodayList();
+                $this.renderAllLists();
+                $this.renderListByDate();
+                $this.renderEditWindow();
+            }
+            else {
+                $this.renderEmpty();
+            }
+
+            $('body').css('opacity', 1);
+            $('body').fadeIn();
             resolve();
         });
     };
@@ -43,11 +54,27 @@ define(['jquery','q'],function($, q){
     ToDoList.prototype.setControllers = function(){
         this.editWindowSubmit();
         this.editWindowCancel();
+        this.editWindowDelete();
+
         this.editItemEvent();
     };
 
+    ToDoList.prototype.editWindowDelete = function(){
+        $("#edit-delete-btn").click(function(){
+
+            var formData = this.getEditFormData();
+
+            if ( formData.title && formData.title.length > 0 &&
+                formData.list && formData.list.length > 0  ) {
+                this.removeItem(formData.title, formData.list);
+            }
+
+        }.bind(this));
+
+    };
+
     ToDoList.prototype.editWindowCancel = function(){
-        $("#submit-cancel").click( this.closePopup );
+        $("#edit-cancel-btn").click( this.closePopup );
     };
 
     ToDoList.prototype.editItemEvent = function(){
@@ -69,15 +96,9 @@ define(['jquery','q'],function($, q){
     };
 
     ToDoList.prototype.editWindowSubmit = function(){
-        $('#submit-btn').click(function(){
+        $('#edit-submit-btn').click(function(){
 
-            var myForm = $('#edit-task-form')[0];
-
-            var formData = {
-                title: myForm.elements['title'].value,
-                date: myForm.elements['datetime'].value,
-                list: myForm.elements['newList'].value || myForm.elements['select-list'].value
-            };
+            var formData = this.getEditFormData();
 
             console.log(formData);
             var validate = this.validateEditWindow(formData);
@@ -94,6 +115,24 @@ define(['jquery','q'],function($, q){
                 this.editItemEvent();
             }
         }.bind(this))
+    };
+
+    ToDoList.prototype.removeItem = function(title, list) {
+
+        var isRemoved = this.data.some(function (element, index, array) {
+            if(element.title === title && element.list === list) {
+                array.splice(index, 1);
+                return true;
+            }
+        });
+
+        if(isRemoved){
+            this.saveDataToStorage(this.data);
+            this.closePopup();
+            this.render();
+            this.editItemEvent();
+        }
+
     };
 
     ToDoList.prototype.renderSelectList = function(){
@@ -127,7 +166,7 @@ define(['jquery','q'],function($, q){
         $.each(this.dataByDate, function(key, val){
 
             var listContainer = 'list-container-' + key.replace(/ /g, "-");
-            var listName = 'list-' + key;
+            var listName = 'list-' + key.replace(/ /g, "-");
             var listCollapsible = $('<div data-role="collapsible" id="'+ listContainer +'"></div>');
             var listTitle = $('<h4 class="list-title">'+ key +'</h4>');
 
@@ -179,13 +218,24 @@ define(['jquery','q'],function($, q){
         }
     };
 
+    ToDoList.prototype.renderEmpty = function(){
+        var emptyContent = $('<div>Your List Is Empty</div>');
+        $('#todayList-container').empty();
+        $('#listByDate').empty();
+        $('#allLists').empty();
+
+        $('#allLists').append(emptyContent);
+        $('#allLists').fadeIn();
+
+    };
+
     ToDoList.prototype.mapDataBy = function(key){
         var mapedData = {};
         var data = this.data;
         var field = key;
 
         data.map(function (val) {
-            if(typeof val[field] !== 'undefined' && val[field] !== null && val[field].length > 1){
+            if(typeof val[field] !== 'undefined' && val[field] !== null && val[field].length > 0){
 
                 if(field === 'date'){
                     val[field] = new Date(val[field]).toDateString();
@@ -240,7 +290,7 @@ define(['jquery','q'],function($, q){
             var valTime = isNaN(valDate.getTime()) ? '' : valDate.toLocaleTimeString();
 
             var listItem = $('<li class="list-item-content"></li>');
-            var itemLink = $('<a href="#add-new" class="ui-btn ui-btn-icon-right ui-icon-gear listItem"></a>');
+            var itemLink = $('<a class="ui-btn ui-btn-icon-right ui-icon-gear listItem"></a>');
             var itemTitle = $('<h2>' + val.title + '</h2>');
             var itemTime = $('<p>' + valTime + '</p>');
 
@@ -256,6 +306,8 @@ define(['jquery','q'],function($, q){
     };
 
     ToDoList.prototype.validateEditWindow = function(data){
+        var isExist = null;
+
         if (typeof data.title === 'undefined' || data.title === null || data.title.length === 0) {
             return {error: 'Missing Title'};
         }
@@ -268,9 +320,11 @@ define(['jquery','q'],function($, q){
             return {error: 'Missing Date'};
         }
 
-        var isExist = this.data.some(function(element){
-            return element.title === data.title;
-        });
+        if( this.data && this.data.length > 0) {
+            isExist = this.data.some(function (element) {
+                return element.title === data.title;
+            });
+        }
 
         if(isExist) {
            return {error: 'Title already exist'};
@@ -278,6 +332,19 @@ define(['jquery','q'],function($, q){
 
         return true;
 
+    };
+
+    ToDoList.prototype.getEditFormData = function(){
+        var myForm = $('#edit-task-form')[0];
+        return {
+            title: myForm.elements['title'].value,
+            date: myForm.elements['datetime'].value,
+            list: myForm.elements['newList'].value || myForm.elements['select-list'].value
+        };
+    };
+
+    ToDoList.prototype.saveDataToStorage = function (data) {
+        localStorage.setItem('todoData', JSON.stringify(data));
     };
 
     return ToDoList
